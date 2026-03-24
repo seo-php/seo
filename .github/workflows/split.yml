@@ -1,0 +1,43 @@
+name: Split Packages
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '*'
+  workflow_dispatch:
+
+jobs:
+  split:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    strategy:
+      fail-fast: false
+      matrix:
+        package:
+          # - head
+          # - head-laravel
+          # - indexnow
+          # - llms-txt
+          # - llms-txt-laravel
+          # - robots
+          - robots-laravel
+          # - schema-org
+          # - seo-laravel
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Split package
+        uses: danharrin/monorepo-split-github-action@v2.4.0
+        with:
+          package_directory: 'packages/${{ matrix.package }}'
+          repository_organization: 'seo-php'
+          repository_name: '${{ matrix.package }}'
+          tag: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+          user_name: 'dllobell'
+          user_email: 'dllobellmoya@gmail.com'
+        env:
+          GITHUB_TOKEN: ${{ secrets.SPLIT_TOKEN }}

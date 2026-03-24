@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd"
+    bootstrap="vendor/autoload.php"
+    colors="true"
+>
+    <testsuites>
+        <testsuite name="Head">
+            <directory suffix="Test.php">./packages/head/tests</directory>
+        </testsuite>
+        <testsuite name="HeadLaravel">
+            <directory suffix="Test.php">./packages/head-laravel/tests</directory>
+        </testsuite>
+        <testsuite name="IndexNow">
+            <directory suffix="Test.php">./packages/indexnow/tests</directory>
+        </testsuite>
+        <testsuite name="LlmsTxt">
+            <directory suffix="Test.php">./packages/llms-txt/tests</directory>
+        </testsuite>
+        <testsuite name="LlmsTxtLaravel">
+            <directory suffix="Test.php">./packages/llms-txt-laravel/tests</directory>
+        </testsuite>
+        <testsuite name="Robots">
+            <directory suffix="Test.php">./packages/robots/tests</directory>
+        </testsuite>
+        <testsuite name="RobotsLaravel">
+            <directory suffix="Test.php">./packages/robots-laravel/tests</directory>
+        </testsuite>
+        <testsuite name="SchemaOrg">
+            <directory suffix="Test.php">./packages/schema-org/tests</directory>
+        </testsuite>
+        <testsuite name="SeoLaravel">
+            <directory suffix="Test.php">./packages/seo-laravel/tests</directory>
+        </testsuite>
+    </testsuites>
+    <source>
+        <include>
+            <directory suffix=".php">./packages/head/src</directory>
+            <directory suffix=".php">./packages/head-laravel/src</directory>
+            <directory suffix=".php">./packages/indexnow/src</directory>
+            <directory suffix=".php">./packages/llms-txt/src</directory>
+            <directory suffix=".php">./packages/llms-txt-laravel/src</directory>
+            <directory suffix=".php">./packages/robots/src</directory>
+            <directory suffix=".php">./packages/robots-laravel/src</directory>
+            <directory suffix=".php">./packages/schema-org/src</directory>
+            <directory suffix=".php">./packages/seo-laravel/src</directory>
+        </include>
+    </source>
+</phpunit>

@@ -1,0 +1,39 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "seophp/llms-txt-laravel",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "seophp",
+        "seo",
+        "llms",
+        "llms.txt",
+        "laravel"
+    ],
+    "require": {
+        "php": "^8.4",
+        "seophp/llms-txt": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seo\\LlmsTxt\\Laravel\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seo\\LlmsTxt\\Laravel\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Seo\\LlmsTxt\\Laravel\\LlmsTxtServiceProvider"
+            ]
+        }
+    }
+}

@@ -1,0 +1,32 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "seophp/indexnow",
+    "description": "Lightweight, framework-agnostic IndexNow management for PHP",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "seophp",
+        "seo",
+        "indexnow"
+    ],
+    "require": {
+        "php": "^8.4",
+        "psr/http-client-implementation": "^1.0",
+        "php-http/discovery": "^1.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seo\\IndexNow\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seo\\IndexNow\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
+}

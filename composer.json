@@ -1,0 +1,85 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "seophp/seo",
+    "description": "SEO toolkit for PHP",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "David Llobell",
+            "email": "dllobellmoya@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": "^8.4",
+        "nette/php-generator": "^4.2",
+        "php-http/discovery": "^1.20",
+        "psr/http-client-implementation": "^1.0"
+    },
+    "require-dev": {
+        "eolica/coding-standard": "^2.0",
+        "guzzlehttp/guzzle": "^7.10",
+        "livewire/livewire": "^3.0",
+        "monorepo-php/monorepo": "^12.0",
+        "orchestra/testbench": "^10.0|^11.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0",
+        "php-http/mock-client": "^1.0",
+        "phpstan/phpstan": "^2.0",
+        "rector/rector": "^2.0",
+        "symfony/var-dumper": "^7.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seo\\Head\\": "packages/head/src",
+            "Seo\\Head\\Laravel\\": "packages/head-laravel/src",
+            "Seo\\IndexNow\\": "packages/indexnow/src",
+            "Seo\\Laravel\\": "packages/seo-laravel/src",
+            "Seo\\LlmsTxt\\": "packages/llms-txt/src",
+            "Seo\\LlmsTxt\\Laravel\\": "packages/llms-txt-laravel/src",
+            "Seo\\Robots\\": "packages/robots/src",
+            "Seo\\Robots\\Laravel\\": "packages/robots-laravel/src",
+            "Seo\\SchemaOrg\\": "packages/schema-org/src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seo\\Head\\Laravel\\Tests\\": "packages/head-laravel/tests",
+            "Seo\\Head\\Tests\\": "packages/head/tests",
+            "Seo\\IndexNow\\Tests\\": "packages/indexnow/tests",
+            "Seo\\Laravel\\Tests\\": "packages/seo-laravel/tests",
+            "Seo\\LlmsTxt\\Laravel\\Tests\\": "packages/llms-txt-laravel/tests",
+            "Seo\\LlmsTxt\\Tests\\": "packages/llms-txt/tests",
+            "Seo\\Robots\\Laravel\\Tests\\": "packages/robots-laravel/tests",
+            "Seo\\Robots\\Tests\\": "packages/robots/tests",
+            "Seo\\SchemaOrg\\Generator\\": "packages/schema-org/generator/src",
+            "Seo\\SchemaOrg\\Tests\\": "packages/schema-org/tests"
+        }
+    },
+    "scripts": {
+        "lint": [
+            "ecs check"
+        ],
+        "lint:fix": [
+            "ecs check --fix"
+        ],
+        "analyse": [
+            "phpstan analyse"
+        ],
+        "test": [
+            "pest --colors=always --parallel"
+        ],
+        "refactor": [
+            "rector process"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true,
+            "php-http/discovery": false
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

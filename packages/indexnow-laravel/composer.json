@@ -1,0 +1,38 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "seophp/indexnow-laravel",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "seophp",
+        "seo",
+        "indexnow",
+        "laravel"
+    ],
+    "require": {
+        "php": "^8.4",
+        "seophp/indexnow": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seo\\IndexNow\\Laravel\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seo\\IndexNow\\Laravel\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Seo\\IndexNow\\Laravel\\IndexNowServiceProvider"
+            ]
+        }
+    }
+}

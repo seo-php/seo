@@ -1,0 +1,38 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "seophp/robots-laravel",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "seophp",
+        "seo",
+        "robots",
+        "laravel"
+    ],
+    "require": {
+        "php": "^8.4",
+        "seophp/robots": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seo\\Robots\\Laravel\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seo\\Robots\\Laravel\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Seo\\Robots\\Laravel\\RobotsServiceProvider"
+            ]
+        }
+    }
+}

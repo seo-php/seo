@@ -1,0 +1,30 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DummyNamespace;
+
+use Seo\LlmsTxt\Laravel\Providers\LlmsTxtServiceProvider as ServiceProvider;
+use Seo\LlmsTxt\Laravel\LlmsTxtConfig;
+use Seo\LlmsTxt\LlmsTxtBuilder;
+use Seo\LlmsTxt\LlmsTxtSectionBuilder;
+
+final class LlmsTxtServiceProvider extends ServiceProvider
+{
+    protected function configure(LlmsTxtConfig $config): void
+    {
+        $config
+            ->llmsTxt(
+                fn () => (new LlmsTxtBuilder())
+                    ->title('My Site')
+                    ->description('Description of my site')
+                    ->section(
+                        fn (LlmsTxtSectionBuilder $section) => $section
+                            ->title('Docs')
+                            ->link('Getting Started', 'https://example.com/docs/getting-started'),
+                    )
+                    ->build(),
+            )
+        ;
+    }
+}

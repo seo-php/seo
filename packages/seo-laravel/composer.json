@@ -1,0 +1,39 @@
+{
+    "$schema": "https://getcomposer.org/schema.json",
+    "name": "seophp/seo-laravel",
+    "license": "MIT",
+    "type": "library",
+    "keywords": [
+        "laravel"
+    ],
+    "homepage": "https://github.com/seophp/seo",
+    "require": {
+        "php": "^8.4",
+        "seophp/head-laravel": "self.version",
+        "seophp/llms-txt-laravel": "self.version",
+        "seophp/robots-laravel": "self.version",
+        "seophp/schema-org": "self.version"
+    },
+    "autoload": {
+        "psr-4": {
+            "Seo\\Laravel\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Seo\\Laravel\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Seo\\Laravel\\SeoServiceProvider"
+            ]
+        }
+    }
+}
