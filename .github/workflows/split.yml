@@ -17,15 +17,16 @@ jobs:
       fail-fast: false
       matrix:
         package:
-          # - head
-          # - head-laravel
-          # - indexnow
-          # - llms-txt
-          # - llms-txt-laravel
-          # - robots
+          - head
+          - head-laravel
+          - indexnow
+          - llms-txt
+          - llms-txt-laravel
+          - robots
           - robots-laravel
-          # - schema-org
-          # - seo-laravel
+          - schema-org
+          - schema-org-laravel
+          - seo-laravel
 
     steps:
       - uses: actions/checkout@v6
