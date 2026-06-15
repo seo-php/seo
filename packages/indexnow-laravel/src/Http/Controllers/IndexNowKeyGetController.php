@@ -4,25 +4,26 @@ declare(strict_types=1);
 
 namespace Seo\IndexNow\Laravel\Http\Controllers;
 
-use Illuminate\Http\Response;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Http\Request;
+use Seo\IndexNow\Laravel\Http\Responses\IndexNowKeyResponse;
+use Seo\IndexNow\Laravel\IndexNowConfigRegistry;
 
 final readonly class IndexNowKeyGetController
 {
-    public function __invoke(string $key): Response
+    public function __construct(
+        private IndexNowConfigRegistry $registry,
+        private Application $app,
+    ) {}
+
+    public function __invoke(Request $request): IndexNowKeyResponse
     {
-        /** @var string */
-        $url = config('app.url');
+        $config = $this->registry->resolve($request->getHost());
 
-        $siteKey = substr(hash('sha256', $url), 0, 32);
-
-        if ($key !== $siteKey) {
+        if ($config === null || $config->key === '' || !$this->app->environment(['production', 'local'])) {
             abort(404);
         }
 
-        return new Response(
-            content: $siteKey,
-            status: Response::HTTP_OK,
-            headers: ['Content-Type' => 'text/plain; charset=UTF-8'],
-        );
+        return new IndexNowKeyResponse($config->key);
     }
 }

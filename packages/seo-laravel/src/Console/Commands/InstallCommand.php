@@ -21,6 +21,7 @@ final class InstallCommand extends Command
      */
     private const PACKAGES = [
         'head' => 'head:install',
+        'indexnow' => 'indexnow:install',
         'llms-txt' => 'llms-txt:install',
         'robots' => 'robots:install',
     ];
@@ -57,7 +58,7 @@ final class InstallCommand extends Command
     }
 
     /**
-     * @return list<string>
+     * @return array<int|string>
      */
     private function selectPackages(): array
     {
@@ -69,6 +70,7 @@ final class InstallCommand extends Command
             label: 'Which SEO packages would you like to install?',
             options: [
                 'head' => 'Head — meta tags, Open Graph & more',
+                'indexnow' => 'IndexNow — verification key route & URL submissions',
                 'llms-txt' => 'Llms.txt — llms.txt & llms-full.txt routes',
                 'robots' => 'Robots.txt — robots.txt route',
             ],

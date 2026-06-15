@@ -10,6 +10,7 @@
     "require": {
         "php": "^8.4",
         "seophp/head-laravel": "self.version",
+        "seophp/indexnow-laravel": "self.version",
         "seophp/llms-txt-laravel": "self.version",
         "seophp/robots-laravel": "self.version",
         "seophp/schema-org": "self.version"

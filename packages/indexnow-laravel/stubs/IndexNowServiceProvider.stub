@@ -1,0 +1,19 @@
+<?php
+
+declare(strict_types=1);
+
+namespace DummyNamespace;
+
+use Seo\IndexNow\Laravel\IndexNowConfig;
+use Seo\IndexNow\Laravel\Providers\IndexNowServiceProvider as ServiceProvider;
+
+final class IndexNowServiceProvider extends ServiceProvider
+{
+    protected function configure(IndexNowConfig $config): void
+    {
+        $config
+            ->host((string) parse_url((string) config('app.url'), PHP_URL_HOST))
+            ->key('')
+        ;
+    }
+}

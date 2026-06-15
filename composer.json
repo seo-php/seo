@@ -19,21 +19,22 @@
     "require-dev": {
         "eolica/coding-standard": "^2.0",
         "guzzlehttp/guzzle": "^7.10",
-        "livewire/livewire": "^3.0",
+        "laravel/pao": "^1.0",
+        "livewire/livewire": "^3.0|^4.0",
         "monorepo-php/monorepo": "^12.0",
         "orchestra/testbench": "^10.0|^11.0",
         "pestphp/pest": "^4.0",
         "pestphp/pest-plugin-laravel": "^4.0",
         "php-http/mock-client": "^1.0",
         "phpstan/phpstan": "^2.0",
-        "rector/rector": "^2.0",
-        "symfony/var-dumper": "^7.0"
+        "rector/rector": "^2.0"
     },
     "autoload": {
         "psr-4": {
             "Seo\\Head\\": "packages/head/src",
             "Seo\\Head\\Laravel\\": "packages/head-laravel/src",
             "Seo\\IndexNow\\": "packages/indexnow/src",
+            "Seo\\IndexNow\\Laravel\\": "packages/indexnow-laravel/src",
             "Seo\\Laravel\\": "packages/seo-laravel/src",
             "Seo\\LlmsTxt\\": "packages/llms-txt/src",
             "Seo\\LlmsTxt\\Laravel\\": "packages/llms-txt-laravel/src",
@@ -47,6 +48,7 @@
             "Seo\\Head\\Laravel\\Tests\\": "packages/head-laravel/tests",
             "Seo\\Head\\Tests\\": "packages/head/tests",
             "Seo\\IndexNow\\Tests\\": "packages/indexnow/tests",
+            "Seo\\IndexNow\\Laravel\\Tests\\": "packages/indexnow-laravel/tests",
             "Seo\\Laravel\\Tests\\": "packages/seo-laravel/tests",
             "Seo\\LlmsTxt\\Laravel\\Tests\\": "packages/llms-txt-laravel/tests",
             "Seo\\LlmsTxt\\Tests\\": "packages/llms-txt/tests",

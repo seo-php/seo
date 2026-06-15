@@ -15,6 +15,9 @@
         <testsuite name="IndexNow">
             <directory suffix="Test.php">./packages/indexnow/tests</directory>
         </testsuite>
+        <testsuite name="IndexNowLaravel">
+            <directory suffix="Test.php">./packages/indexnow-laravel/tests</directory>
+        </testsuite>
         <testsuite name="LlmsTxt">
             <directory suffix="Test.php">./packages/llms-txt/tests</directory>
         </testsuite>
@@ -39,6 +42,7 @@
             <directory suffix=".php">./packages/head/src</directory>
             <directory suffix=".php">./packages/head-laravel/src</directory>
             <directory suffix=".php">./packages/indexnow/src</directory>
+            <directory suffix=".php">./packages/indexnow-laravel/src</directory>
             <directory suffix=".php">./packages/llms-txt/src</directory>
             <directory suffix=".php">./packages/llms-txt-laravel/src</directory>
             <directory suffix=".php">./packages/robots/src</directory>
