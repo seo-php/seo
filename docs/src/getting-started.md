@@ -32,10 +32,11 @@ If you're using Laravel, install the meta-package to get all integrations in a s
 composer require seophp/seo-laravel
 ```
 
-This pulls in `head-laravel`, `robots-laravel`, `llms-txt-laravel`, and `schema-org`. Then run each package's install command to scaffold your service providers:
+This pulls in `head-laravel`, `robots-laravel`, `llms-txt-laravel`, `indexnow-laravel`, and `schema-org`. Then run each package's install command to scaffold your service providers:
 
 ```bash
 php artisan head:install
+php artisan indexnow:install
 php artisan robots:install
 php artisan llms-txt:install
 ```
@@ -75,4 +76,5 @@ composer require seophp/indexnow
 - [LLMS.txt](/packages/llms-txt/) — manage `llms.txt` files
 - [Schema.org](/packages/schema-org/) — generate JSON-LD structured data
 - [IndexNow](/packages/indexnow/) — submit URLs to search engines
+- [IndexNow for Laravel](/packages/indexnow/laravel) — verification key route and URL submissions
 - [SEO for Laravel](/packages/seo-laravel) — Laravel meta-package

@@ -1,12 +1,12 @@
 ---
 title: IndexNow for Laravel
-description: Laravel integration for seophp/indexnow — submit URLs and serve verification keys in Laravel.
+description: Laravel integration for seophp/indexnow — serve the verification key and submit URLs.
 outline: deep
 ---
 
 # IndexNow for Laravel
 
-Laravel integration for [seophp/indexnow](/packages/indexnow/). Automatically serves the IndexNow verification key file and provides access to the IndexNow client for submitting URLs from within a Laravel application.
+Laravel integration for [seophp/indexnow](/packages/indexnow/). Serves the IndexNow key verification file dynamically and provides an `IndexNowClientManager` for submitting URLs via the [IndexNow](https://www.indexnow.org/) protocol.
 
 ## Requirements
 
@@ -21,50 +21,146 @@ Install via [Composer](https://getcomposer.org):
 composer require seophp/indexnow-laravel
 ```
 
-The package is auto-discovered by Laravel — no manual provider registration needed.
+Then run the install command to scaffold your service provider:
 
-## Key verification endpoint
-
-The package automatically registers a route that serves the IndexNow verification key file. Search engines use this endpoint to verify that you own the site.
-
-The key is deterministically generated from your application URL (`config('app.url')`), using a truncated SHA-256 hash:
-
-```
-GET https://yourapp.com/{key}.txt → returns the key as plain text
+```bash
+php artisan indexnow:install
 ```
 
-No configuration is needed — the key is derived automatically. Only requests with the correct key in the URL receive a `200` response; all others return `404`.
+This will:
+- Create `app/Providers/IndexNowServiceProvider.php` in your application
+- Register it automatically in `bootstrap/providers.php`
 
-### How it works
+## Configuration
 
-1. The controller reads `config('app.url')` from your Laravel configuration
-2. Generates the key: first 32 characters of `sha256(app.url)`
-3. Compares the `{key}` URL parameter against the generated key
-4. Returns the key as a `text/plain` response if it matches, or `404` if not
+All configuration lives inside the generated service provider. Implement the `configure` method, which receives an `IndexNowConfig` instance:
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Providers;
+
+use Seo\IndexNow\Endpoint;
+use Seo\IndexNow\Laravel\IndexNowConfig;
+use Seo\IndexNow\Laravel\Providers\IndexNowServiceProvider as ServiceProvider;
+
+final class IndexNowServiceProvider extends ServiceProvider
+{
+    protected function configure(IndexNowConfig $config): void
+    {
+        $config
+            ->host((string) parse_url((string) config('app.url'), PHP_URL_HOST))
+            ->key('your-api-key')
+            ->endpoint(Endpoint::Global)
+        ;
+    }
+}
+```
+
+| Method | Description |
+|---|---|
+| `host(string $host)` | The hostname submitted to IndexNow (without scheme or path) |
+| `key(string $key)` | Your IndexNow API key (8–128 characters, `[a-zA-Z0-9-]`) |
+| `keyLocation(?string $keyLocation)` | Optional full URL to the key file if not served at `/{key}.txt` |
+| `endpoint(?Endpoint $endpoint)` | Search engine endpoint; defaults to `Endpoint::Global` |
+| `domain(?string $domain)` | Restrict this config to a specific domain |
+| `middleware(array $middleware)` | Middleware applied to the key verification route |
+
+::: info API key
+The `key` must be a string of 8–128 characters containing only letters (`a-z`, `A-Z`), digits (`0-9`), and dashes (`-`). Search engines verify ownership by fetching a text file containing the key. This package serves that file automatically — no static file in `public/` is required.
+:::
+
+### Key verification route
+
+When a key is configured, the package registers a route that serves the key as plain text at `/{key}.txt` by default. If `keyLocation` is set, the route is registered at the path component of that URL instead.
+
+The route is not registered when `key` is empty, so you can run `indexnow:install` before generating a key.
+
+### Environments
+
+The key verification route is only available in `production` and `local` environments. In all other environments (e.g. `staging`), the route returns a `404` response. This prevents non-production deployments from exposing your IndexNow key without any extra configuration.
+
+### Middleware
+
+Apply middleware to the key verification route via `middleware()`:
+
+```php
+$config->middleware(['throttle:60,1']);
+```
+
+### Domain constraints
+
+Restrict configuration to a specific domain or subdomain. This is useful in monorepo setups where multiple apps share the same Laravel installation but each needs its own IndexNow config:
+
+```php
+// App\Providers\MarketingIndexNowServiceProvider
+$config
+    ->domain('marketing.example.com')
+    ->host('marketing.example.com')
+    ->key('marketing-key-1234')
+;
+
+// App\Providers\IndexNowServiceProvider — catch-all for all other domains
+$config
+    ->host('www.example.com')
+    ->key('abcd1234')
+;
+```
+
+Register each as a separate provider in `bootstrap/providers.php`.
+
+If `domain()` is not called, the config acts as a catch-all and matches any host. This is the correct setup for single-app projects and also works as a fallback in monorepo setups alongside domain-specific providers.
+
+## Generating a key
+
+Generate a valid IndexNow API key from the command line:
+
+```bash
+php artisan indexnow:generate-key
+```
+
+By default this outputs a 32-character lowercase hex key. Use `--length` to customize the length (8–128):
+
+```bash
+php artisan indexnow:generate-key --length=64
+```
+
+Copy the output and set it in your `IndexNowServiceProvider`:
+
+```php
+$config->key('your-generated-key');
+```
 
 ## Submitting URLs
 
-Use the core [IndexNow client](/packages/indexnow/) to submit URLs. The key matches the one served by the verification endpoint:
+Inject `IndexNowClientManager` to build an `IndexNowClient` from your configuration and submit URLs:
 
 ```php
-use Seo\IndexNow\IndexNowClient;
+use Seo\IndexNow\Laravel\IndexNowClientManager;
 
-$url = config('app.url');
-$key = substr(hash('sha256', $url), 0, 32);
+public function __construct(private IndexNowClientManager $indexNow) {}
 
-$client = IndexNowClient::create(
-    host: parse_url($url, PHP_URL_HOST),
-    key: $key,
-    keyLocation: $url . '/' . $key . '.txt',
-);
+// Single URL
+$this->indexNow->client()->submit('https://www.example.com/new-article');
 
-$client->submit('https://yourapp.com/new-article');
-$client->submit([
-    'https://yourapp.com/updated-page',
-    'https://yourapp.com/another-page',
+// Multiple URLs
+$this->indexNow->client()->submit([
+    'https://www.example.com/new-article',
+    'https://www.example.com/updated-page',
 ]);
 ```
 
-::: tip
-Consider wrapping the client creation in a service provider or singleton binding for reuse across your application.
-:::
+Pass a domain to resolve a domain-specific config from the registry:
+
+```php
+$this->indexNow->client('marketing.example.com')->submit($url);
+```
+
+See the [core IndexNow package](/packages/indexnow/) for details on endpoints, key file locations, and the underlying client API.
+
+## Next Steps
+
+- [IndexNow](/packages/indexnow/) — core client API, endpoints, and URL submission
+- [SEO for Laravel](/packages/seo-laravel) — install all seophp Laravel integrations at once

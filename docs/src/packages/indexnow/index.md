@@ -90,4 +90,4 @@ $client->submit([
 
 ## Next Steps
 
-- [Laravel Integration](/packages/indexnow/laravel) — submit URLs from within a Laravel application
+- [Laravel Integration](/packages/indexnow/laravel) — serve the verification key and submit URLs in Laravel

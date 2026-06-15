@@ -28,6 +28,7 @@ This pulls in the following packages:
 | [`seophp/head-laravel`](/packages/head/laravel) | Manage and render HTML `<head>` tags |
 | [`seophp/robots-laravel`](/packages/robots/laravel) | Serve a dynamic `robots.txt` response |
 | [`seophp/llms-txt-laravel`](/packages/llms-txt/laravel) | Serve a dynamic `llms.txt` response |
+| [`seophp/indexnow-laravel`](/packages/indexnow/laravel) | Serve the IndexNow verification key and submit URLs |
 | [`seophp/schema-org`](/packages/schema-org/) | Generate JSON-LD structured data |
 
 ## Setup
@@ -38,7 +39,7 @@ Run the install command to scaffold all service providers at once:
 php artisan seo:install
 ```
 
-This presents an interactive menu where you select which packages to set up. For each selected package, it delegates to the package's own install command (`head:install`, `robots:install`, `llms-txt:install`).
+This presents an interactive menu where you select which packages to set up. For each selected package, it delegates to the package's own install command (`head:install`, `indexnow:install`, `robots:install`, `llms-txt:install`).
 
 ### Install all at once
 
@@ -69,6 +70,7 @@ After running `seo:install`, the following service providers are created in `app
 | Provider | Manages |
 |---|---|
 | `HeadServiceProvider` | HTML head tags, Vite assets, Livewire assets |
+| `IndexNowServiceProvider` | IndexNow verification key route and configuration |
 | `RobotsTxtServiceProvider` | `robots.txt` route and configuration |
 | `LlmsTxtServiceProvider` | `llms.txt` route and configuration |
 
@@ -79,4 +81,5 @@ Each provider is automatically registered in `bootstrap/providers.php`.
 - [Head for Laravel](/packages/head/laravel) — configure head tags, meta, and asset plugins
 - [Robots for Laravel](/packages/robots/laravel) — configure `robots.txt` rules per environment and domain
 - [LLMS.txt for Laravel](/packages/llms-txt/laravel) — configure `llms.txt` sections and links
+- [IndexNow for Laravel](/packages/indexnow/laravel) — configure the verification key route and submit URLs
 - [Schema.org](/packages/schema-org/) — add JSON-LD structured data to your pages
