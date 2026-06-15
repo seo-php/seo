@@ -9,7 +9,7 @@
         "head",
         "laravel"
     ],
-    "homepage": "https://github.com/seophp/seo",
+    "homepage": "https://github.com/seo-php/seo",
     "require": {
         "php": "^8.4",
         "seophp/head": "self.version",
