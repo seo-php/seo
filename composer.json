@@ -40,7 +40,8 @@
             "Seo\\LlmsTxt\\Laravel\\": "packages/llms-txt-laravel/src",
             "Seo\\Robots\\": "packages/robots/src",
             "Seo\\Robots\\Laravel\\": "packages/robots-laravel/src",
-            "Seo\\SchemaOrg\\": "packages/schema-org/src"
+            "Seo\\SchemaOrg\\": "packages/schema-org/src",
+            "Seo\\SchemaOrg\\Laravel\\": "packages/schema-org-laravel/src"
         }
     },
     "autoload-dev": {
@@ -55,6 +56,7 @@
             "Seo\\Robots\\Laravel\\Tests\\": "packages/robots-laravel/tests",
             "Seo\\Robots\\Tests\\": "packages/robots/tests",
             "Seo\\SchemaOrg\\Generator\\": "packages/schema-org/generator/src",
+            "Seo\\SchemaOrg\\Laravel\\Tests\\": "packages/schema-org-laravel/tests",
             "Seo\\SchemaOrg\\Tests\\": "packages/schema-org/tests"
         }
     },

@@ -24,6 +24,7 @@ final class InstallCommand extends Command
         'indexnow' => 'indexnow:install',
         'llms-txt' => 'llms-txt:install',
         'robots' => 'robots:install',
+        'schema-org' => 'schema-org:install',
     ];
 
     public function __invoke(): int
@@ -73,6 +74,7 @@ final class InstallCommand extends Command
                 'indexnow' => 'IndexNow — verification key route & URL submissions',
                 'llms-txt' => 'Llms.txt — llms.txt & llms-full.txt routes',
                 'robots' => 'Robots.txt — robots.txt route',
+                'schema-org' => 'Schema.org — JSON-LD structured data',
             ],
             default: array_keys(self::PACKAGES),
             required: true,

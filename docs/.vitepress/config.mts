@@ -58,6 +58,7 @@ export default defineConfig({
         text: 'Schema.org',
         items: [
           { text: 'Overview', link: '/packages/schema-org/' },
+          { text: 'Laravel Integration', link: '/packages/schema-org/laravel' },
         ],
       },
       {

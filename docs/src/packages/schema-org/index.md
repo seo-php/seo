@@ -200,55 +200,7 @@ $graph->add(Organization::make()->name('Example Inc.'));
 
 ### Laravel integration
 
-In a Laravel application, register the `Graph` as a scoped singleton and wire it to the `Head` instance via the `SchemaOrgPlugin`:
-
-```php
-<?php
-
-declare(strict_types=1);
-
-namespace App\Providers;
-
-use Illuminate\Support\ServiceProvider;
-use Seo\Head\Head;
-use Seo\SchemaOrg\Graph;
-use Seo\SchemaOrg\Head\Plugins\SchemaOrgPlugin;
-
-final class SchemaOrgHeadServiceProvider extends ServiceProvider
-{
-    public function register(): void
-    {
-        $this->app->scopedIf(Graph::class, static fn () => new Graph());
-
-        $this->app->afterResolving(Head::class, function (Head $head): void {
-            $head->plugin(SchemaOrgPlugin::make($this->app->make(Graph::class)));
-        });
-    }
-}
-```
-
-Then inject the `Graph` in your controllers or Livewire components to add types:
-
-```php
-use Seo\SchemaOrg\Graph;
-use Seo\SchemaOrg\Types\Article;
-
-final class ShowArticle extends Component
-{
-    public Article $article;
-
-    public function render(): mixed
-    {
-        app(Graph::class)->add(
-            \Seo\SchemaOrg\Types\Article::make()
-                ->headline($this->article->title)
-                ->datePublished($this->article->published_at)
-        );
-
-        return view('livewire.show-article');
-    }
-}
-```
+For Laravel applications, use [Schema.org for Laravel](/packages/schema-org/laravel/) — it registers a request-scoped `Graph`, wires it to Head via `SchemaOrgPlugin`, and scaffolds an application service provider with `php artisan schema-org:install`.
 
 ## Property inheritance
 

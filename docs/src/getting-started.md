@@ -17,7 +17,7 @@ The monorepo is structured around **feature areas**, each with two packages:
 | `seophp/head` | `seophp/head-laravel` |
 | `seophp/robots` | `seophp/robots-laravel` |
 | `seophp/llms-txt` | `seophp/llms-txt-laravel` |
-| `seophp/schema-org` | _(built-in via seo-laravel)_ |
+| `seophp/schema-org` | `seophp/schema-org-laravel` |
 | `seophp/indexnow` | `seophp/indexnow-laravel` |
 
 The **core packages** have no framework dependencies and can be used with any PHP 8.4+ project. The **Laravel packages** add service providers, Artisan commands, and route registration on top of the core packages, and require Laravel 12+.
@@ -32,13 +32,14 @@ If you're using Laravel, install the meta-package to get all integrations in a s
 composer require seophp/seo-laravel
 ```
 
-This pulls in `head-laravel`, `robots-laravel`, `llms-txt-laravel`, `indexnow-laravel`, and `schema-org`. Then run each package's install command to scaffold your service providers:
+This pulls in `head-laravel`, `robots-laravel`, `llms-txt-laravel`, `indexnow-laravel`, and `schema-org-laravel`. Then run each package's install command to scaffold your service providers:
 
 ```bash
 php artisan head:install
 php artisan indexnow:install
 php artisan robots:install
 php artisan llms-txt:install
+php artisan schema-org:install
 ```
 
 See [SEO for Laravel](/packages/seo-laravel) for details.
@@ -75,6 +76,7 @@ composer require seophp/indexnow
 - [Robots](/packages/robots/) — build, render, and parse `robots.txt` files
 - [LLMS.txt](/packages/llms-txt/) — manage `llms.txt` files
 - [Schema.org](/packages/schema-org/) — generate JSON-LD structured data
+- [Schema.org for Laravel](/packages/schema-org/laravel) — JSON-LD via Head integration
 - [IndexNow](/packages/indexnow/) — submit URLs to search engines
 - [IndexNow for Laravel](/packages/indexnow/laravel) — verification key route and URL submissions
 - [SEO for Laravel](/packages/seo-laravel) — Laravel meta-package
