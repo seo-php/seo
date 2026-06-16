@@ -26,7 +26,6 @@
             "Seo\\SchemaOrg\\Generator\\": "generator/src"
         }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "suggest": {
         "seophp/head": "Required to use Seo\\SchemaOrg\\Head\\Plugins\\SchemaOrgPlugin."

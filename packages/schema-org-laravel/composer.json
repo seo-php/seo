@@ -29,7 +29,6 @@
             "Seo\\SchemaOrg\\Laravel\\Tests\\": "tests"
         }
     },
-    "minimum-stability": "dev",
     "prefer-stable": true,
     "suggest": {
         "seophp/head-laravel": "Registers Head in the container and renders tags in your layout. Required for automatic JSON-LD output unless you bind Seo\\Head\\Head yourself."
