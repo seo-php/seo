@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Seo\IndexNow\Laravel;
 
-use Illuminate\Contracts\Foundation\Application;
 use Psr\Http\Client\ClientInterface;
 use RuntimeException;
 use Seo\IndexNow\Endpoint;
@@ -14,7 +13,6 @@ final class IndexNowClientManager
 {
     public function __construct(
         private IndexNowConfigRegistry $registry,
-        private Application $app,
         private ?ClientInterface $client = null,
     ) {}
 
