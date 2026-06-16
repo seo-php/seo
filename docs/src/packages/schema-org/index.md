@@ -180,6 +180,14 @@ If you're using [seophp/head](/packages/head/), the `SchemaOrgPlugin` handles th
 
 ## Head integration
 
+::: warning Requires seophp/head
+`SchemaOrgPlugin` is optional. Install [seophp/head](/packages/head/) alongside schema-org when you want automatic `<script>` rendering:
+
+```bash
+composer require seophp/head
+```
+:::
+
 The package includes a `SchemaOrgPlugin` that integrates with [seophp/head](/packages/head/) to automatically render the JSON-LD `<script>` tag in the `<head>` section:
 
 ```php

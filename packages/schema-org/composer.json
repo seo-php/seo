@@ -12,6 +12,9 @@
     "require": {
         "php": "^8.4"
     },
+    "require-dev": {
+        "seophp/head": "self.version"
+    },
     "autoload": {
         "psr-4": {
             "Seo\\SchemaOrg\\": "src"
@@ -25,6 +28,9 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "suggest": {
+        "seophp/head": "Required to use Seo\\SchemaOrg\\Head\\Plugins\\SchemaOrgPlugin."
+    },
     "config": {
         "sort-packages": true
     }

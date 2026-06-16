@@ -12,8 +12,11 @@
     ],
     "require": {
         "php": "^8.4",
-        "seophp/head-laravel": "self.version",
+        "seophp/head": "self.version",
         "seophp/schema-org": "self.version"
+    },
+    "require-dev": {
+        "seophp/head-laravel": "self.version"
     },
     "autoload": {
         "psr-4": {
@@ -27,6 +30,9 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
+    "suggest": {
+        "seophp/head-laravel": "Registers Head in the container and renders tags in your layout. Required for automatic JSON-LD output unless you bind Seo\\Head\\Head yourself."
+    },
     "config": {
         "sort-packages": true
     },
