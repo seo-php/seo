@@ -3,3 +3,5 @@ parameters:
     phpVersion: 80400
     paths:
         - packages
+    excludePaths:
+        - packages/*/tests/*

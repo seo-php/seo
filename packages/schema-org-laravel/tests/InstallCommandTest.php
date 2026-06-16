@@ -11,10 +11,9 @@ it('scaffolds the schema org service provider', function (): void {
         unlink($providerPath);
     }
 
-    /** @var Illuminate\Testing\PendingCommand $command */
-    $command = artisan('schema-org:install');
-
-    $command->assertSuccessful();
+    artisan('schema-org:install')
+        ->assertSuccessful()
+    ;
 
     expect(file_exists($providerPath))->toBeTrue()
         ->and(file_get_contents($providerPath))->toContain('Seo\\SchemaOrg\\Laravel\\Providers\\SchemaOrgServiceProvider')
@@ -31,10 +30,9 @@ it('refuses to overwrite an existing provider without force', function (): void 
 
     file_put_contents($providerPath, '<?php // existing');
 
-    /** @var Illuminate\Testing\PendingCommand $command */
-    $command = artisan('schema-org:install');
-
-    $command->assertFailed();
+    artisan('schema-org:install')
+        ->assertFailed()
+    ;
 
     expect(file_get_contents($providerPath))->toBe('<?php // existing');
 });
@@ -49,10 +47,9 @@ it('overwrites an existing provider with force', function (): void {
 
     file_put_contents($providerPath, '<?php // existing');
 
-    /** @var Illuminate\Testing\PendingCommand $command */
-    $command = artisan('schema-org:install', ['--force' => true]);
-
-    $command->assertSuccessful();
+    artisan('schema-org:install', ['--force' => true])
+        ->assertSuccessful()
+    ;
 
     expect(file_get_contents($providerPath))->toContain('Seo\\SchemaOrg\\Laravel\\Providers\\SchemaOrgServiceProvider');
 });
