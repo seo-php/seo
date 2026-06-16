@@ -5,14 +5,25 @@ declare(strict_types=1);
 use function Pest\Laravel\artisan;
 
 it('outputs a valid key', function (): void {
-    artisan('indexnow:generate-key')->assertSuccessful();
+    /** @var Illuminate\Testing\PendingCommand $command */
+    $command = artisan('indexnow:generate-key');
+
+    $command->assertSuccessful();
 });
 
 it('respects length option', function (): void {
-    artisan('indexnow:generate-key', ['--length' => 16])->assertSuccessful();
+    /** @var Illuminate\Testing\PendingCommand $command */
+    $command = artisan('indexnow:generate-key', ['--length' => 16]);
+
+    $command->assertSuccessful();
 });
 
 it('fails for invalid length', function (): void {
-    artisan('indexnow:generate-key', ['--length' => 7])->assertFailed();
-    artisan('indexnow:generate-key', ['--length' => 129])->assertFailed();
+    /** @var Illuminate\Testing\PendingCommand $command */
+    $command = artisan('indexnow:generate-key', ['--length' => 7]);
+    $command->assertFailed();
+
+    /** @var Illuminate\Testing\PendingCommand $command */
+    $command = artisan('indexnow:generate-key', ['--length' => 129]);
+    $command->assertFailed();
 });
