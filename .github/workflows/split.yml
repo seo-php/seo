@@ -20,6 +20,7 @@ jobs:
           - head
           - head-laravel
           - indexnow
+          - indexnow-laravel
           - llms-txt
           - llms-txt-laravel
           - robots
