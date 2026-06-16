@@ -97,7 +97,7 @@ When [Head](/packages/head/laravel) renders, the JSON-LD `<script type="applicat
 
 This package depends on [seophp/head](/packages/head/) for `Head` and `SchemaOrgPlugin`. JSON-LD is only rendered automatically when `Head` is resolved from the Laravel container.
 
-For most applications, also install [seophp/head-laravel](/packages/head/laravel/):
+For most applications, also install [seophp/head-laravel](/packages/head/laravel):
 
 ```bash
 composer require seophp/head-laravel

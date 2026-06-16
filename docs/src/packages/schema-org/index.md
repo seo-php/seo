@@ -208,7 +208,7 @@ $graph->add(Organization::make()->name('Example Inc.'));
 
 ### Laravel integration
 
-For Laravel applications, use [Schema.org for Laravel](/packages/schema-org/laravel/) — it registers a request-scoped `Graph`, wires it to Head via `SchemaOrgPlugin`, and scaffolds an application service provider with `php artisan schema-org:install`.
+For Laravel applications, use [Schema.org for Laravel](/packages/schema-org/laravel) — it registers a request-scoped `Graph`, wires it to Head via `SchemaOrgPlugin`, and scaffolds an application service provider with `php artisan schema-org:install`.
 
 ## Property inheritance
 
