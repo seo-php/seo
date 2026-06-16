@@ -29,10 +29,13 @@ final class Graph implements JsonSerializable
     }
 
     /**
-     * @return array<array<string, mixed>>
+     * @return array{'@context': string, '@graph': array<array<string, mixed>>}
      */
     public function jsonSerialize(): array
     {
-        return $this->toArray();
+        return [
+            '@context' => 'https://schema.org',
+            '@graph' => $this->toArray(),
+        ];
     }
 }

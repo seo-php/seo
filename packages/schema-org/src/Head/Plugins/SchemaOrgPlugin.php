@@ -23,10 +23,7 @@ final readonly class SchemaOrgPlugin implements HeadPlugin
     public function initialize(Head $head): void
     {
         $head->onTagsResolving(function (TagsResolvingContext $context): void {
-            $content = json_encode([
-                '@context' => 'https://schema.org',
-                '@graph' => $this->graph->toArray(),
-            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+            $content = json_encode($this->graph, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 
             $context->tags->add(new HeadTag(
                 type: 'script',
