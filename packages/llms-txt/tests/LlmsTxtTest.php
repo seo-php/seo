@@ -27,7 +27,8 @@ it('should make a document with description and details', function (): void {
     expect($llms->title)->toBe('My Site')
         ->and($llms->description)->toBe('A brief description.')
         ->and($llms->details)->toBe('Additional context.')
-        ->and($llms->sections)->toBe([]);
+        ->and($llms->sections)->toBe([])
+    ;
 });
 
 it('should make a document with sections', function (): void {
@@ -58,5 +59,6 @@ it('should expose public properties on the document', function (): void {
         ->title->toBe('My Site')
         ->description->toBe('Description')
         ->details->toBe('Details')
-        ->sections->toBe([]);
+        ->sections->toBe([])
+    ;
 });

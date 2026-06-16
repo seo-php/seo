@@ -23,7 +23,8 @@ it('adds vite link and script tags to the head', function (): void {
         ->andReturn(<<<'HTML'
 <link rel="stylesheet" href="https://example.com/build/assets/app.css" />
 <script type="module" src="https://example.com/build/assets/app.js"></script>
-HTML);
+HTML)
+    ;
 
     app()->instance(Vite::class, $vite);
 
@@ -39,7 +40,8 @@ it('uses default entrypoints when none are provided', function (): void {
     $vite->shouldReceive('__invoke')
         ->once()
         ->with([], null)
-        ->andReturn('<link rel="stylesheet" href="https://example.com/build/assets/app.css" />');
+        ->andReturn('<link rel="stylesheet" href="https://example.com/build/assets/app.css" />')
+    ;
 
     app()->instance(Vite::class, $vite);
 

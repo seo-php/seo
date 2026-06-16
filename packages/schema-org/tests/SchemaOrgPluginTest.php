@@ -24,5 +24,6 @@ it('renders graph json-ld through head', function (): void {
     expect($headTags)
         ->toContain('type="application/ld+json"')
         ->toContain('Example Inc.')
-        ->toContain('https://example.com/#organization');
+        ->toContain('https://example.com/#organization')
+    ;
 });
