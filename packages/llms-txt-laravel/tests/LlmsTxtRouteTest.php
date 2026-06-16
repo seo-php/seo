@@ -19,7 +19,7 @@ it('serves llms.txt in production', function (): void {
     $response->assertOk()
         ->assertHeader('Content-Type', 'text/plain; charset=UTF-8')
         ->assertSeeText('# My Site')
-        ->assertSeeText('> A description')
+        ->assertSeeText('> A description', escape: false)
     ;
 });
 
