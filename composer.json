@@ -71,10 +71,10 @@
             "phpstan analyse"
         ],
         "test": [
-            "pest --colors=always --parallel"
+            "pest --colors=always"
         ],
         "test:laravel": [
-            "pest --colors=always --parallel --testsuite Laravel"
+            "pest --colors=always --testsuite HeadLaravel,IndexNowLaravel,LlmsTxtLaravel,RobotsLaravel,SchemaOrgLaravel,SeoLaravel"
         ],
         "refactor": [
             "rector process"
