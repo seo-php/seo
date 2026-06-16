@@ -7,6 +7,11 @@ on:
     tags:
       - '*'
   workflow_dispatch:
+    inputs:
+      tag:
+        description: 'Tag to publish to split repositories (e.g. v1.0.0)'
+        required: false
+        type: string
 
 jobs:
   split:
@@ -31,6 +36,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.tag || github.ref }}
 
       - name: Split package
         uses: danharrin/monorepo-split-github-action@v2.4.5
@@ -38,7 +45,7 @@ jobs:
           package_directory: 'packages/${{ matrix.package }}'
           repository_organization: 'seo-php'
           repository_name: '${{ matrix.package }}'
-          tag: ${{ github.ref_type == 'tag' && github.ref_name || '' }}
+          tag: ${{ github.event_name == 'workflow_dispatch' && inputs.tag || (github.ref_type == 'tag' && github.ref_name || '') }}
           user_name: 'dllobell'
           user_email: 'dllobellmoya@gmail.com'
         env:
