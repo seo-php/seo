@@ -9,6 +9,7 @@
     "homepage": "https://github.com/seo-php/seo",
     "require": {
         "php": "^8.4",
+        "illuminate/support": ">=12.0",
         "seophp/head-laravel": "self.version",
         "seophp/indexnow-laravel": "self.version",
         "seophp/llms-txt-laravel": "self.version",

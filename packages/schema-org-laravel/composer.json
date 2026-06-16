@@ -12,6 +12,7 @@
     ],
     "require": {
         "php": "^8.4",
+        "illuminate/support": ">=12.0",
         "seophp/head": "self.version",
         "seophp/schema-org": "self.version"
     },

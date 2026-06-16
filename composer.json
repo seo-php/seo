@@ -73,6 +73,9 @@
         "test": [
             "pest --colors=always --parallel"
         ],
+        "test:laravel": [
+            "pest --colors=always --parallel --testsuite Laravel"
+        ],
         "refactor": [
             "rector process"
         ]

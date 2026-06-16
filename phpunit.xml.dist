@@ -39,6 +39,14 @@
         <testsuite name="SeoLaravel">
             <directory suffix="Test.php">./packages/seo-laravel/tests</directory>
         </testsuite>
+        <testsuite name="Laravel">
+            <directory suffix="Test.php">./packages/head-laravel/tests</directory>
+            <directory suffix="Test.php">./packages/indexnow-laravel/tests</directory>
+            <directory suffix="Test.php">./packages/llms-txt-laravel/tests</directory>
+            <directory suffix="Test.php">./packages/robots-laravel/tests</directory>
+            <directory suffix="Test.php">./packages/schema-org-laravel/tests</directory>
+            <directory suffix="Test.php">./packages/seo-laravel/tests</directory>
+        </testsuite>
     </testsuites>
     <source>
         <include>

@@ -12,8 +12,9 @@
     "homepage": "https://github.com/seo-php/seo",
     "require": {
         "php": "^8.4",
-        "seophp/head": "self.version",
-        "nette/php-generator": "^4.2"
+        "illuminate/support": ">=12.0",
+        "nette/php-generator": "^4.2",
+        "seophp/head": "self.version"
     },
     "autoload": {
         "psr-4": {

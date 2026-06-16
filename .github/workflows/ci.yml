@@ -7,14 +7,36 @@ on:
   pull_request:
 
 jobs:
-  build:
+  quality:
+    runs-on: ubuntu-latest
+    name: Quality
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+
+      - name: Install dependencies
+        run: composer install --no-interaction
+
+      - name: Lint
+        run: composer lint
+
+      - name: Analyse
+        run: composer analyse
+
+  test:
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
         php: [8.4, 8.5]
 
-    name: PHP ${{ matrix.php }}
+    name: Tests (PHP ${{ matrix.php }})
 
     steps:
       - name: Checkout
@@ -26,13 +48,44 @@ jobs:
           php-version: ${{ matrix.php }}
 
       - name: Install dependencies
-        run: composer install
-
-      - name: Lint
-        run: composer lint
-
-      - name: Analyse
-        run: composer analyse
+        run: composer install --no-interaction
 
       - name: Test
         run: composer test
+
+  laravel:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - laravel: 12
+            testbench: "^10.0"
+          - laravel: 13
+            testbench: "^11.0"
+
+    name: Laravel ${{ matrix.laravel }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+
+      - name: Install dependencies
+        run: composer install --no-interaction
+
+      - name: Pin Laravel via Testbench
+        run: |
+          composer require --dev --no-update "orchestra/testbench:${{ matrix.testbench }}"
+          composer update orchestra/testbench --with-all-dependencies --no-interaction
+
+      - name: Verify resolved Laravel version
+        run: composer show laravel/framework | grep -E '^versions'
+
+      - name: Test Laravel packages
+        run: composer test:laravel
