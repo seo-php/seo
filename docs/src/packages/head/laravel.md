@@ -75,7 +75,7 @@ final class HeadServiceProvider extends ServiceProvider
 }
 ```
 
-The `Head` instance is registered as a singleton in the container, so all configuration is shared across the request.
+The `Head` instance is registered as a scoped binding in the container: one instance per request (or queued job, or Octane request), shared across that request. The `configure` method runs again for every new instance, so put all your configuration there rather than in another provider's `boot` method.
 
 ## Layout component
 

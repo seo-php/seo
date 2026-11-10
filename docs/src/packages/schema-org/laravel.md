@@ -104,6 +104,6 @@ composer require seophp/head-laravel
 php artisan head:install
 ```
 
-`head-laravel` registers `Head` as a singleton and provides the Blade layout component used to render `<head>` tags. If you are not using `head-laravel`, bind `Seo\Head\Head` in a service provider yourself and render Head in your layout.
+`head-laravel` registers `Head` as a scoped binding (one instance per request) and provides the Blade layout component used to render `<head>` tags. If you are not using `head-laravel`, bind `Seo\Head\Head` in a service provider yourself and render Head in your layout.
 
 When using the [seo-laravel](/packages/seo-laravel) meta-package, `head-laravel` is included automatically.

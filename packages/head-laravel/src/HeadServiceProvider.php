@@ -13,7 +13,7 @@ final class HeadServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->singletonIf(Head::class, fn () => Head::create());
+        $this->app->scopedIf(Head::class, fn () => Head::create());
 
         $this->app->alias(Head::class, 'head');
     }
