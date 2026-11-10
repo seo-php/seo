@@ -25,3 +25,19 @@ it('renders slot content inside the body', function (): void {
 
     expect(renderLayout('<main>Custom content</main>'))->toContain('<main>Custom content</main>');
 });
+
+it('renders tags added while rendering the slot', function (): void {
+    $html = renderLayout(<<<'BLADE'
+@php
+    app(\Seo\Head\Head::class)
+        ->title('Slot Title')
+        ->script(async: true, id: 'slot-script', src: 'https://example.com/slot.js', tagPosition: \Seo\Head\HeadTagPosition::BodyClose);
+@endphp
+<main>Custom content</main>
+BLADE);
+
+    expect($html)->toContain('<title>Slot Title</title>')
+        ->and($html)->toContain('<script async id="slot-script" src="https://example.com/slot.js"></script>')
+        ->and($html)->toContain('<main>Custom content</main>')
+    ;
+});
