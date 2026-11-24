@@ -95,6 +95,20 @@ $head->style(textContent: 'body { margin: 0; }');
 $head->noscript(textContent: '<style>.js-only { display: none; }</style>');
 ```
 
+### Text content escaping
+
+Text content is not sanitized, so only pass trusted content to `script`, `style` and `noscript`. When rendering, each tag escapes just enough to keep its content from ending the element early:
+
+| Tag | Escaping |
+|---|---|
+| `title` | HTML-escaped (`&` → `&amp;`, `<` → `&lt;`, …). Pass plain text, not HTML entities. |
+| `script` | Left intact, except `</script` and `<!--` (case-insensitive), which become `\x3C/script` and `\x3C!--`. |
+| `script` with a JSON type (ending in `json`, `importmap` or `speculationrules`) | Every `<` becomes `\u003C`, which decodes to the same value. |
+| `style` | Left intact, except `</style`, which becomes `<\/style`. |
+| `noscript` | Left intact, except `</noscript`, which becomes `<\/noscript`. |
+
+In JavaScript, `\x3C` still means `<` inside strings, template literals and regular expressions. Outside of them, avoid writing `</script` or `<!--` (for example, write `a < !--b` instead of `a<!--b`).
+
 ### Tag positioning
 
 By default, tags are placed in the `<head>` section. You can place them after the `<body>` opening tag or before the `</body>` closing tag using `HeadTagPosition`:
