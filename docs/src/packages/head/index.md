@@ -318,7 +318,7 @@ $head->plugin(CanonicalPlugin::make(
 |---|---|
 | `onTitleAdded` | When `title()` is called |
 | `onTagAdded` | When any tag is added |
-| `onTagsResolving` | Before deduplication and sorting |
+| `onTagsResolving` | Before deduplication and sorting (see [Custom priority](#custom-priority)) |
 | `onTagsResolved` | After deduplication and sorting |
 | `onRendering` | Before final HTML rendering |
 | `onRendered` | After rendering is complete |
@@ -343,20 +343,58 @@ Tags are automatically deduplicated when rendered. The last tag added wins. Dedu
 - **Other meta tags** — deduplicated by `name` or `property` attribute
 - **Tags with `id`** — deduplicated by tag type + id
 
+Deduplication keeps the order in which tags were added: the winning tag takes the place of the first tag with the same key.
+
 ## Tag sorting
 
-Tags are automatically sorted by priority when rendered. The default ordering prioritizes:
+Tags are automatically sorted by weight when rendered, from lowest to highest. Tags with the same weight keep the order in which they were added.
 
-1. `<base>` and CSP meta tags
-2. Charset meta
-3. Viewport meta
-4. `<title>`
-5. Preconnect links
-6. Async scripts
-7. Synchronous scripts and styles
-8. Preload/modulepreload links
-9. Deferred scripts and modules
-10. Prefetch, DNS-prefetch, and prerender links
+| Weight | Tags |
+|---|---|
+| -30 | `<meta http-equiv="content-security-policy">` |
+| -20 | `<meta charset>` |
+| -15 | `<meta name="viewport">` |
+| -10 | `<base>` |
+| 10 | `<title>` |
+| 20 | `<link rel="preconnect">` |
+| 30 | `async` scripts |
+| 40 | `<style>` with `@import` |
+| 50 | External scripts without `async`, `defer` or `type="module"`, and inline scripts (except types ending in `json`) |
+| 60 | `<link rel="stylesheet">` and other `<style>` tags |
+| 70 | `<link rel="preload">` and `<link rel="modulepreload">` |
+| 80 | External `defer` or `type="module"` scripts |
+| 90 | `<link rel="prefetch">`, `<link rel="dns-prefetch">` and `<link rel="prerender">` |
+| 100 | Everything else |
+
+### Custom priority
+
+Tags created with `HeadTag` accept a `priority` that replaces the computed weight. This is useful in plugins that need to control the order of the tags they add. For example, to keep a library and the inline script that uses it in the order they were added, give them the same priority:
+
+```php
+use Seo\Head\Context\TagsResolvingContext;
+use Seo\Head\HeadTag;
+use Seo\Head\HeadTagPosition;
+
+$head->onTagsResolving(function (TagsResolvingContext $context) {
+    $context->tags->add(new HeadTag(
+        type: 'script',
+        attributes: ['src' => '/js/lib.js'],
+        textContent: null,
+        position: HeadTagPosition::Head,
+        priority: 50,
+    ));
+
+    $context->tags->add(new HeadTag(
+        type: 'script',
+        attributes: [],
+        textContent: 'Lib.init()',
+        position: HeadTagPosition::Head,
+        priority: 50,
+    ));
+});
+```
+
+The priority is a plain integer compared against the weights above: a lower value renders earlier. Since `priority` is a public property, a plugin can also change it on tags added by others.
 
 ## Next Steps
 
